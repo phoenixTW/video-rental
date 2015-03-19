@@ -7,7 +7,6 @@ package com.twu.refactor;
 public class HTMLStatement {
     public static String getHTML(Customer customer) {
         int frequentRenterPoints = customer.getTotalFrequentRentalPoint();
-        String HTML = getHeader(customer);
         String body = "";
 
         for (Rental rental : customer.rentalList)
@@ -17,7 +16,7 @@ public class HTMLStatement {
 
         body = getParagraph(body) + getFooter(totalAmount, frequentRenterPoints);
 
-        return HTML + body;
+        return getHeader(customer) + body;
     }
 
     private static String getFooter(double totalAmount, int frequentRenterPoints) {
