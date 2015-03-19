@@ -2,8 +2,6 @@ package com.twu.refactor;
 
 public class Rental {
     private static final int ONE_DAY = 1;
-    private static final int TWO_DAY = 2;
-    private static final int THREE_DAY = 3;
 
     private Movie movie;
 
@@ -14,22 +12,12 @@ public class Rental {
         this.daysRented = daysRented;
     }
 
-    public int getDaysRented() {
-
-        return daysRented;
-    }
-
     public Movie getMovie() {
         return movie;
     }
 
     public double getAmountFor() {
         return movie.getCostForMovie((daysRented));
-    }
-
-    private double calculateCost(double rentalAmount) {
-
-        return rentalAmount;
     }
 
     public int getFrequentPoints() {
@@ -44,5 +32,10 @@ public class Rental {
 
     public double getAmountRental() {
         return movie.getCostForMovie(daysRented);
+    }
+
+    public String eachRentalDetail() {
+        return movie.getTitle() + ": "
+                + String.valueOf(getAmountRental());
     }
 }
