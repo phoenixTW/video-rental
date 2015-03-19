@@ -7,16 +7,20 @@ package com.twu.refactor;
 public class HTMLStatement {
     public static String getHTML(Customer customer) {
         int frequentRenterPoints = customer.getTotalFrequentRentalPoint();
+        double totalAmount = customer.totalAmount();
+
+        String body = getParagraph(getHTMLBody(customer)) + getFooter(totalAmount, frequentRenterPoints);
+
+        return getHeader(customer) + body;
+    }
+
+    private static String getHTMLBody(Customer customer) {
         String body = "";
 
         for (Rental rental : customer.rentalList)
             body += rental.eachRentalDetail() + "<BR>";
 
-        double totalAmount = customer.totalAmount();
-
-        body = getParagraph(body) + getFooter(totalAmount, frequentRenterPoints);
-
-        return getHeader(customer) + body;
+        return body;
     }
 
     private static String getFooter(double totalAmount, int frequentRenterPoints) {
