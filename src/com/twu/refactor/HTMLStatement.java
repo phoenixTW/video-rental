@@ -6,13 +6,6 @@ package com.twu.refactor;
  */
 
 public class HTMLStatement {
-    private static final String BREAK = "<BR>";
-    private static final String EMOpening = "<EM>";
-    private static final String EMClosing = "</EM>";
-    private static final String PARAGRAPHOpening = "<P>";
-    private static final String PARAGRAPHClosing = "</P>";
-    private static final String HEADINGOpen = "<H1>";
-    private static final String HEADINGClose = "</H1>";
 
     public static String getHTML(Customer customer) {
         int frequentRenterPoints = customer.getTotalFrequentRentalPoint();
@@ -27,30 +20,31 @@ public class HTMLStatement {
         String body = "";
 
         for (Rental rental : customer.rentalList)
-            body += rental.eachRentalDetail() + BREAK;
+            body += rental.eachRentalDetail() + HTMLTags.BREAK;
 
         return body;
     }
 
     private static String getFooter(double totalAmount, int frequentRenterPoints) {
-        String body = getParagraph("You owe " + EMOpening + totalAmount + EMClosing);
+        String body = getParagraph("You owe " + HTMLTags.EMOpening + totalAmount + HTMLTags.EMClosing);
         body += getFrequentPointStatement(frequentRenterPoints);
         return body;
     }
 
     private static String getFrequentPointStatement(int frequentRenterPoints) {
-        String body = "On this rental you earned " + EMOpening +
-                frequentRenterPoints + EMClosing + " frequent renter points";
+        String body = "On this rental you earned " + HTMLTags.EMOpening +
+                frequentRenterPoints + HTMLTags.EMClosing + " frequent renter points";
 
         return getParagraph(body);
     }
 
     private static String getParagraph(String body) {
-        return PARAGRAPHOpening + body + PARAGRAPHClosing;
+        return HTMLTags.PARAGRAPHOpening + body + HTMLTags.PARAGRAPHClosing;
     }
 
     private static String getHeader(Customer customer) {
-        return HEADINGOpen + "Rentals for " +
-                EMOpening + customer.getName() + EMClosing + HEADINGClose;
+        return HTMLTags.HEADINGOpen + "Rentals for " +
+                HTMLTags.EMOpening + customer.getName() + HTMLTags.EMClosing
+                + HTMLTags.HEADINGClose;
     }
 }
