@@ -1,24 +1,19 @@
 package com.twu.refactor;
 
 /**
- * Created by kaustavc on 3/19/2015.
+ * Created by kaustavc on 3/19/2015
+ * Generating HTML Statement.
  */
 public class HTMLStatement {
     public static String getHTML(Customer customer) {
-        double totalAmount = 0.0;
-        int frequentRenterPoints = 0;
+        int frequentRenterPoints = customer.getTotalFrequentRentalPoint();
         String HTML = getHeader(customer);
         String body = "";
 
-        for (Rental rental : customer.rentalList) {
-            double rentalAmount = rental.getAmountRental();
+        for (Rental rental : customer.rentalList)
+            body += rental.eachRentalDetail() + "<BR>";
 
-            frequentRenterPoints += rental.getFrequentPoints();
-
-            body = eachRentalDetail(body, rental, rentalAmount);
-
-            totalAmount += rentalAmount;
-        }
+        double totalAmount = customer.totalAmount();
 
         body = getParagraph(body) + getFooter(totalAmount, frequentRenterPoints);
 
@@ -44,11 +39,5 @@ public class HTMLStatement {
 
     private static String getHeader(Customer customer) {
         return "<H1>Rentals for <EM>" + customer.getName() + "</EM></H1>";
-    }
-
-    private static String eachRentalDetail(String body, Rental rental, double rentalAmount) {
-        body += rental.getMovie().getTitle() + ": "
-                + String.valueOf(rentalAmount) + "<BR>";
-        return body;
     }
 }
